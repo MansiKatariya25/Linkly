@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import {  useParams } from "react-router-dom";
 
 function Home() {
   const [originalUrl, setoriginalUrl] = useState("");
@@ -35,6 +36,24 @@ function Home() {
     } catch (error) {
       console.error(error);
     }
+  };
+  const [share, setShare] = useState(false);
+  const parms = useParams();
+
+  useEffect(() => {
+    setShare(!parms.id);
+  }, [parms.id]);
+
+  const handleCopyUrl = () => {
+    const currentUrl = window.location.href;
+    navigator.clipboard
+      .writeText(currentUrl)
+      .then(() => {
+        alert("Link copied to clipboard!"); 
+      })
+      .catch((err) => {
+        console.error("Failed to copy Link: ", err);
+      });
   };
 
   return (
@@ -74,7 +93,7 @@ function Home() {
           <p className={shortUrl ? "block text-lg text-white" : "hidden"} >
             Here is your short URL : {window.location.origin}/m/{shortUrl}
           </p>
-          <button className={shortUrl ? "block p-3 bg-blue-600 w-[100px] rounded-full text-white" : "hidden"}>Copy Link</button>
+          <button onClick={handleCopyUrl} className={shortUrl ? "block p-3 bg-blue-600 w-[100px] rounded-full text-white" : "hidden"}>Copy Link</button>
           </div>
           
         </div>
