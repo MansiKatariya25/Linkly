@@ -11,7 +11,7 @@ function Url() {
     useEffect(()=>{
         const sendId = async ()=> {
             try {
-                const response = await axios.post("http://localhost:8000/api/getId",{id:id})
+                const response = await axios.post("/api/getId",{id:id})
                 if(response){
                     
                     window.location.href = response.data

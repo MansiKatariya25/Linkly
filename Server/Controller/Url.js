@@ -1,8 +1,21 @@
 const Urls = require("../Models/Urls")
+const RandomString = async() => {
+    const char =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const length = 6;
+    let randomString = "";
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * char.length);
+      randomString += char[randomIndex];
+    }
+    return randomString;
+  };
+
 
 module.exports.getUrl =async (req,res) => {
     try {
-        const {originalUrl , shortUrl } = req.body
+        const {originalUrl } = req.body
+        const shortUrl = await RandomString()
         if(!originalUrl || !shortUrl){
         return res.status(404).send("Data not found")
     }
@@ -11,7 +24,7 @@ module.exports.getUrl =async (req,res) => {
         shortUrl: shortUrl
     }).save()
     if(saveUrl){
-        return res.status(200).send("Urls added successfully")
+        return res.status(200).send({url:shortUrl})
     }
     } catch(error) {
         return res.status(503).send(error)

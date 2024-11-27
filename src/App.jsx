@@ -2,10 +2,11 @@ import { useState } from 'react'
 import Home from './Component/Home'
 import { BrowserRouter ,Route,  Routes} from 'react-router-dom'
 import Url from './Component/Url'
+import axios from 'axios'
 
 function App() {
   const [count, setCount] = useState(0)
-
+ axios.defaults.baseURL = "http://localhost:8000"
   return (
     <>
       <BrowserRouter>

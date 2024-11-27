@@ -9,29 +9,19 @@ function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const RandomString = () => {
-      const char =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      const length = 6;
-      let randomString = "";
-      for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * char.length);
-        randomString += char[randomIndex];
-      }
-      return randomString;
-    };
 
-    const randomString = RandomString();
+   
 
     try {
-      const response = await axios.post("http://localhost:8000/api/getUrl",{
+      const response = await axios.post("/api/getUrl",{
         originalUrl: originalUrl,
-        shortUrl: randomString,
       });
       if(response){
         console.log("Urls added in database");
+        console.log(response.data.url)
+        setShortUrl(response.data.url);
       }
-      setShortUrl(randomString);
+    
 
     } catch (error) {
       console.error(error);
@@ -44,8 +34,11 @@ function Home() {
     setShare(!parms.id);
   }, [parms.id]);
 
+  
+
   const handleCopyUrl = () => {
-    const currentUrl = window.location.href;
+    const currentUrl = window.location.href+"m/"+shortUrl;
+    console.log(currentUrl)
     navigator.clipboard
       .writeText(currentUrl)
       .then(() => {
