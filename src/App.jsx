@@ -6,7 +6,7 @@ import axios from 'axios'
 
 function App() {
   const [count, setCount] = useState(0)
- axios.defaults.baseURL = "http://localhost:8000"
+ axios.defaults.baseURL = "https://liinkly-server.vercel.app"
   return (
     <>
       <BrowserRouter>
