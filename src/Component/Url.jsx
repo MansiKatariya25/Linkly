@@ -17,7 +17,7 @@ function Url() {
                     window.location.href = response.data
                 }
             } catch (error) {
-                console.log(error);
+             
                 setValid(prevVal=>(!prevVal))
                 
             }
@@ -26,7 +26,7 @@ function Url() {
     },[])
   return (
     <div className='flex justify-center items-center h-screen'>
-      <p className='text-white text-5xl'>{isValid?"Invalid URL":""}</p>
+      <p className='text-white text-5xl'>{!isValid?"Invalid URL":""}</p>
     </div>
   )
 }

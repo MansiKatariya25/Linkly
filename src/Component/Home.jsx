@@ -11,14 +11,12 @@ function Home() {
 
 
    
-
     try {
       const response = await axios.post("/api/getUrl",{
         originalUrl: originalUrl,
       });
       if(response){
-        console.log("Urls added in database");
-        console.log(response.data.url)
+        
         setShortUrl(response.data.url);
       }
     
